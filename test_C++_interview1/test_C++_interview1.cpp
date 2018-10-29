@@ -5,15 +5,27 @@
 #include <fstream>
 #include <algorithm>
 #include <string>
+#include <vector> //for main_2
+#include <stdexcept> //exception
+#include <exception> //test
+#include <cstdlib> //檔案路徑
+#include <direct.h> //檔案路徑
+
 using namespace std;
 
 
 
-int main()
+int main(int argc, char *argv[])
 {
 	cout << "Hello\n";
-
-	printLastKLine("src.txt",6);
+	try{
+		printLastKLine("src.txt", 6);
+	}
+	catch (invalid_argument& e)
+	{
+		cerr << e.what() << endl;
+		return -1;
+	}
     return 0;
 }
 
@@ -23,10 +35,19 @@ void printLastKLine(char* filename, int _k = 0)
 {
 	const int K = 10;
 	int size = 0;
-	std::string line[K];
+	string line[K];
+
+	ofstream file_test;
+	filename = "d:\\test\\readfile\\src.txt";
+	_mkdir(filename); //創建目錄
+	file_test.open(filename);//我自己加的
+	if (!file_test.is_open())cout << "Error File Open -> file_test" << endl;
+	file_test << "test";
+	//system("PAUSE");
+	//return EXIT_SUCCESS;
+	file_test.close();
 
 	ifstream file(filename); //ifstream處理檔案輸入
-	//file.open(filename);//我自己加的
 	//if (_k != 0) line[K] = line[_k];
 
 	/*逐行讀擋到環狀陣列*/
@@ -50,12 +71,8 @@ void printLastKLine(char* filename, int _k = 0)
 //读取一系列int数据，并将它们存储到vector对象中，
 //然后使用algorithm头文件中定义的名为count的函数，
 //统计某个指定的值出现了多少次
-#include<iostream>
-#include<vector>
-#include<algorithm>
-using namespace std;
 
-int main_2()
+void main_2()
 {
 	int ival, searchValue;
 	vector<int> ivec;
@@ -76,7 +93,7 @@ int main_2()
 		<< "  elements in the vector have value "
 		<< searchValue << endl;
 
-	return 0;
+	//return 0;
 }
 
 
