@@ -10,19 +10,26 @@
 #include <exception> //test
 #include <cstdlib> //檔案路徑
 #include <direct.h> //檔案路徑
-
 using namespace std;
-
-
 
 int main(int argc, char *argv[])
 {
 	cout << "Hello\n";
 	try{
-		printLastKLine("src.txt", 6);
-	}
-	catch (invalid_argument& e)
-	{
+
+		char * _filename = "d:\\test\\readfile\\src.txt";
+		ofstream file_test;
+
+		_mkdir(_filename); //創建目錄
+		file_test.open(_filename);//我自己加的
+		if (!file_test.is_open())cout << "Error File Open -> file_test" << endl;
+		file_test << "test";
+		file_test.close();
+		//system("PAUSE");
+		//return EXIT_SUCCESS;
+		//printLastKLine(_filename, 6);
+	}catch (invalid_argument & e){
+
 		cerr << e.what() << endl;
 		return -1;
 	}
@@ -36,16 +43,6 @@ void printLastKLine(char* filename, int _k = 0)
 	const int K = 10;
 	int size = 0;
 	string line[K];
-
-	ofstream file_test;
-	filename = "d:\\test\\readfile\\src.txt";
-	_mkdir(filename); //創建目錄
-	file_test.open(filename);//我自己加的
-	if (!file_test.is_open())cout << "Error File Open -> file_test" << endl;
-	file_test << "test";
-	//system("PAUSE");
-	//return EXIT_SUCCESS;
-	file_test.close();
 
 	ifstream file(filename); //ifstream處理檔案輸入
 	//if (_k != 0) line[K] = line[_k];
@@ -96,5 +93,6 @@ void main_2()
 	//return 0;
 }
 
+//文本檔
 
 
